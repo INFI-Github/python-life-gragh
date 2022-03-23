@@ -22,7 +22,7 @@ def make_a_graph(x, y):
 
 def insert_a_rating(rating, comment):
     database.insert_one(
-        {'date': str(date.today()), 'rating': rating, 'comment': comment})
+        {'date': str(date.today()), 'rating': int(rating), 'comment': comment})
 
 
 @app.command()
@@ -33,7 +33,7 @@ def rate():
         else:
             rating = input('Enter your rating: ')
             comment = input('Enter your comment: ')
-            insert_a_rating(rating, comment)
+            insert_a_rating(int(rating), comment)
             print(Fore.GREEN + 'Rating Saved !' + Fore.RESET)
     except:
         print(Fore.RED + 'Something went wrong !' + Fore.RESET)
@@ -42,8 +42,9 @@ def rate():
 @app.command()
 def show_graph():
     try:
-        y = []
+
         x = []
+        y = []
         make_a_graph(x, y)
         print(Fore.GREEN + 'Graph Generated !' + Fore.RESET)
     except:
