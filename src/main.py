@@ -8,7 +8,7 @@ from colorama import Fore
 
 app = typer.Typer()
 
-mongo = pymongo.MongoClient(details.MONGO_URI)
+mongo = pymongo.MongoClient('MONGO URI HERE')
 database = mongo['life-graph']['ratings']
 
 
