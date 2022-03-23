@@ -8,7 +8,7 @@ from colorama import Fore
 
 app = typer.Typer()
 
-mongo = pymongo.MongoClient('MONGO URI HERE')
+mongo = pymongo.MongoClient(details.MONGO_URI)
 database = mongo['life-graph']['ratings']
 
 
@@ -28,16 +28,15 @@ def insert_a_rating(rating, comment):
 @app.command()
 def rate():
     try:
-        if database.find_one({'date': str(date.today())}):
+        if database.find_one({'date': str(date.today())}) is not None:
             print(Fore.YELLOW+'You have already rated today' + Fore.RESET)
-            print()
         else:
-            rating = typer.Typer.input('Enter your rating: ')
-            comment = typer.Typer.input('Enter your comment: ')
+            rating = input('Enter your rating: ')
+            comment = input('Enter your comment: ')
             insert_a_rating(rating, comment)
-            print(Fore.GREEN + 'Rating Saved !')
+            print(Fore.GREEN + 'Rating Saved !' + Fore.RESET)
     except:
-        print(Fore.RED + 'Something went wrong !')
+        print(Fore.RED + 'Something went wrong !' + Fore.RESET)
 
 
 @app.command()
